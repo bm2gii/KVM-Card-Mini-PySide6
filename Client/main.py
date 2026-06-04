@@ -1818,6 +1818,7 @@ class MyMainWindow(QMainWindow, main_ui.Ui_MainWindow):
     def send_char(self, c):
         char_buffer = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         shift = False
+        cq = c
         if c == "\n":
             mapcode = self.keyboard_code["ENTER"]
         elif c == "\t":
@@ -1828,7 +1829,7 @@ class MyMainWindow(QMainWindow, main_ui.Ui_MainWindow):
             try:
                 cq = strB2Q(c)
                 mapcode = self.keyboard_code[cq.upper()]
-                if cq.isupper():
+                if c.isupper():
                     shift = True
             except KeyError:
                 return 2
@@ -1839,7 +1840,7 @@ class MyMainWindow(QMainWindow, main_ui.Ui_MainWindow):
             self.char_idx = 0
         self.last_char = c
         char_buffer[self.char_idx + 4] = mapcode
-        if c in shift_symbol or shift:
+        if c in shift_symbol or cq in shift_symbol or shift:
             char_buffer[2] |= 2
         self._hid_signal.emit(char_buffer)
         self.qt_sleep(self.paste_board_dialog.spinBox_ci.value())

@@ -139,6 +139,7 @@ def mouse_scroll_stop(self):
 def send_char(c):
     char_buffer = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     shift = False
+    cq = c
     if c == "\n":
         mapcode = keyboard_code["ENTER"]
     elif c == "\t":
@@ -149,13 +150,13 @@ def send_char(c):
         try:
             cq = strB2Q(c)
             mapcode = keyboard_code[cq.upper()]
-            if cq.isupper():
+            if c.isupper():
                 shift = True
         except KeyError:
             return 2
     mapcode = int(mapcode, 16)
     char_buffer[4] = mapcode
-    if c in shift_symbol or shift:
+    if c in shift_symbol or cq in shift_symbol or shift:
         char_buffer[2] |= 2
     hid_def.hid_report(char_buffer)
     time.sleep(0.1)
