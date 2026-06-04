@@ -2665,10 +2665,10 @@ class MyMainWindow(QMainWindow, main_ui.Ui_MainWindow):
                 self.device_event_handle("hid_error")
                 return
             elif reply == 3:
-                # QMessageBox.critical(self, "Error", "Function not supported, please upgrade firmware or retry",
-                #                      QMessageBox.Ok)
-                QMessageBox.critical(self, "Error", "功能不支持，请升级固件后重试",
-                                     QMessageBox.Ok)
+                QMessageBox.critical(self, "Error", "Function not supported, please upgrade firmware or retry",
+                                      QMessageBox.Ok)
+                #QMessageBox.critical(self, "Error", "功能不支持，请升级固件后重试",
+                #                     QMessageBox.Ok)
                 return
             if reply[0] == 0x6F and reply[2] == 3:
                 # reply[3] //power
@@ -2737,10 +2737,10 @@ class MyMainWindow(QMainWindow, main_ui.Ui_MainWindow):
             return
         elif reply == 3:
             progress.close()
-            # QMessageBox.critical(self, "Error", "Function not supported, please upgrade firmware or retry",
-            # QMessageBox.Ok)
-            QMessageBox.critical(self, "Error", "功能不支持，请升级固件后重试",
-                                 QMessageBox.Ok)
+            QMessageBox.critical(self, "Error", "Function not supported, please upgrade firmware or retry",
+            QMessageBox.Ok)
+            #QMessageBox.critical(self, "Error", "功能不支持，请升级固件后重试",
+            #                     QMessageBox.Ok)
             return
         if reply[0] == 0x6F and reply[2] == 3:
             # reply[3] //power
@@ -2750,12 +2750,12 @@ class MyMainWindow(QMainWindow, main_ui.Ui_MainWindow):
                 usb_switch_status_value = 0  # float
             elif reply[5] == 0 and reply[4] == 0:
                 usb_switch_status_value = 1  # master
-                # progress_setLabelText = "Switch to Master"
-                progress_setLabelText = "切换到主控端"
+                progress_setLabelText = "Switch to Master"
+                #progress_setLabelText = "切换到主控端"
             elif reply[5] == 0 and reply[4] == 1:
                 usb_switch_status_value = 2  # device
-                # progress_setLabelText = "Switch to Controlled"
-                progress_setLabelText = "切换到被控端"
+                progress_setLabelText = "Switch to Controlled"
+                #progress_setLabelText = "切换到被控端"
             else:
                 # logger.debug("Function reply unknown error")
                 progress.close()
@@ -2771,8 +2771,8 @@ class MyMainWindow(QMainWindow, main_ui.Ui_MainWindow):
         hidinfo = hid_def.hid_report(payload)
         if hidinfo == 1 or hidinfo == 4:
             self.device_event_handle("hid_error")
-        # progress.setLabelText("Disconnect the USB port connection")
-        progress.setLabelText("断开USB切换器接口连接...")
+        progress.setLabelText("Disconnect the USB port connection")
+        #progress.setLabelText("断开USB切换器接口连接...")
         usb_switch_progress(1.5, 20, 60, progress)
 
         # Connected to the other end USB device
@@ -2790,8 +2790,8 @@ class MyMainWindow(QMainWindow, main_ui.Ui_MainWindow):
         hidinfo = hid_def.hid_report(payload)
         if hidinfo == 1 or hidinfo == 4:
             self.device_event_handle("hid_error")
-        # progress.setLabelText("Switch the USB port...  ")
-        progress.setLabelText("切换到另外一个接口...  ")
+        progress.setLabelText("Switch the USB port...  ")
+        #progress.setLabelText("切换到另外一个接口...  ")
         usb_switch_progress(0.5, 60, 100, progress)
 
     def set_log_text(self, text):
